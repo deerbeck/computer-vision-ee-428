@@ -13,8 +13,8 @@ def demosaic(raw):
     demosaic_im = raw.astype('float')/((2**16)-1)
 
     # # # SAMPLE ARRAY
-    # demosaic_im = np.array(
-    #     [[0.2, 0.1, 0.3, 0.2,0.1], [0.12, 0.8, 0.4,0.3,0.1], [0.4, 0.38, 0.6,0.2,0.1], [0.8, 0.28, 0.76,0.1,0.2]])
+    demosaic_im = np.array(
+        [[0.2, 0.1, 0.3, 0.2,0.1], [0.12, 0.8, 0.4,0.3,0.1], [0.4, 0.38, 0.6,0.2,0.1], [0.8, 0.28, 0.76,0.1,0.2]])
 
     # Step 2 Demosaic the red green and blue channel
     # Pad the current raw_image
@@ -65,7 +65,7 @@ def demosaic(raw):
     # cut off edges because no longer needed
     blue_ch = blue_ch[1:-1, 1:-1]
 
-    return np.dstack([red_ch, green_ch, blue_ch])
+    return np.dstack([red_ch, green_ch, blue_ch])   # np stack axis = -1 is the same
 
 
 def white_balance(image):
@@ -89,7 +89,7 @@ def white_balance(image):
     # white balancing blue channel
     blue_ch = channels[2] * 0.5/(np.mean(channels[2]))
     
-    return np.dstack([red_ch, green_ch, blue_ch])
+    return np.dstack([red_ch, green_ch, blue_ch]) # np stack axis = -1 is the same
 
 
 def curve_and_quantize(image, inv_gamma=0.85):
@@ -112,4 +112,4 @@ def curve_and_quantize(image, inv_gamma=0.85):
     # apply gamma curve to blue channel, clip it, scale it with 255 and safe as uint8
     blue_ch = (np.clip(channels[2]**(inv_gamma),0,1)*255).astype('uint8')
     
-    return np.dstack([red_ch, green_ch, blue_ch])
+    return np.dstack([red_ch, green_ch, blue_ch]) # np stack axis = -1 is the same
