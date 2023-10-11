@@ -15,25 +15,19 @@ path_out_JPG = os.path.basename(args.path).split('.')[0]+'.JPG'
 path_out_PNG = os.path.basename(args.path).split('.')[0]+'.PNG'
 
 
-# just for testing:
-# path = "L1004220.DNG"
-# path_out1 = "L100422011.PNG"
-# path_out2 = "L100422011.JPG"
-
-
 with rawpy.imread(args.path) as raw:
     # raw_image contains the raw image data in 16-bit integer format.
     raw_image = raw.raw_image
 
     # demosaic raw image
-    demosaic_im = demosaic(raw_image)
+    demosaic_image = demosaic(raw_image)
 
     # white balance demosaiced image
-    white_balance_im = white_balance(demosaic_im)
+    white_balance_image = white_balance(demosaic_image)
 
     #apply gamma, and quantize white balanced image
-    curve_quan_im = curve_and_quantize(white_balance_im)
+    curve_quan_image = curve_and_quantize(white_balance_image)
 
     #safe picture as PNG and JPG
-    imageio.imwrite(path_out_JPG, curve_quan_im)
-    imageio.imwrite(path_out_PNG, curve_quan_im)
+    imageio.imwrite(path_out_JPG, curve_quan_image)
+    imageio.imwrite(path_out_PNG, curve_quan_image)
