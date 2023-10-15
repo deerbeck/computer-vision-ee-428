@@ -1,5 +1,5 @@
 import numpy as np
-import matplotlib.pyplot as plt
+
 
 def demosaic(raw):
     """ Demosaics a raw 16-bit image captured using a Bayer pattern.
@@ -23,13 +23,11 @@ def demosaic(raw):
         # for odd rows start with column index 1
         if row % 2 != 0:
             for col in range(1, green_channel.shape[1]-1, 2):
-                green_channel[row][col] = (mosaic_image[row-1][col] + mosaic_image[row+1]
-                                      [col] + mosaic_image[row][col-1] + mosaic_image[row][col+1])/4
+                green_channel[row][col] = (mosaic_image[row-1][col] + mosaic_image[row+1][col] + mosaic_image[row][col-1] + mosaic_image[row][col+1])/4
         # for even rows start with column index 0
         else:
             for col in range(0, green_channel.shape[1]-1, 2):
-                green_channel[row][col] = (mosaic_image[row-1][col] + mosaic_image[row+1]
-                                      [col] + mosaic_image[row][col-1] + mosaic_image[row][col+1])/4
+                green_channel[row][col] = (mosaic_image[row-1][col] + mosaic_image[row+1][col] + mosaic_image[row][col-1] + mosaic_image[row][col+1])/4
     # cut off edges to undo the padding
     green_channel = green_channel[1:-1, 1:-1]
 
@@ -38,12 +36,12 @@ def demosaic(raw):
     # interpolate missing columns first
     for row in range(1, red_channel.shape[0], 2):
         for col in range(2, red_channel.shape[1]-1, 2):
-            red_channel[row][col] = (mosaic_image[row][col-1] +
-                                mosaic_image[row][col+1])/2
+            red_channel[row][col] = (mosaic_image[row][col-1] + mosaic_image[row][col+1])/2
     # now use fully filled rows to interpolate the missing rows
     for row in range(2, red_channel.shape[0]-1, 2):
         for col in range(0, red_channel.shape[1]-1):
-            red_channel[row][col] = (red_channel[row-1][col] + red_channel[row+1][col])/2
+            red_channel[row][col] = (
+                red_channel[row-1][col] + red_channel[row+1][col])/2
     # cut off edges to undo the padding
     red_channel = red_channel[1:-1, 1:-1]
 
@@ -52,8 +50,7 @@ def demosaic(raw):
     # interpolate missing columns first
     for row in range(0, blue_channel.shape[0], 2):
         for col in range(1, blue_channel.shape[1]-1, 2):
-            blue_channel[row][col] = (mosaic_image[row][col-1] +
-                                 mosaic_image[row][col+1])/2
+            blue_channel[row][col] = (mosaic_image[row][col-1] + mosaic_image[row][col+1])/2
     # now use fully filled rows to interpolate the missing rows
     for row in range(1, blue_channel.shape[0]-1, 2):
         for col in range(0, blue_channel.shape[1]-1):
@@ -107,6 +104,6 @@ def curve_and_quantize(image, inv_gamma=0.85):
     image = np.power(image, inv_gamma)
 
     # Step 5 Clipping the image, scale it with 255 and safe as unit8
-    image = (np.clip(image,0,1)*255).astype('uint8')
+    image = (np.clip(image, 0, 1)*255).astype('uint8')
 
     return image
