@@ -20,9 +20,9 @@ while cap.isOpened():
     if not ret:
         break
     
+
     wand.process_frame(frame)
      
     cv2.imshow('frame',frame)
     if cv2.waitKey(1) == ord('q'):
         break
-

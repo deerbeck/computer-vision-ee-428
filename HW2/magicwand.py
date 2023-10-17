@@ -18,7 +18,23 @@ class MagicWand:
             Returns:
                 list of tuples (x, y, radius)
         """
-        pass
+        # Pre-Processing of the image to use the ball detection on it
+        # Start with converting frame into gray_scale.
+        image_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        
+        # Applying gaussian blur on it
+        # Kernel size of 9x9 and sigma = 2
+        kernel_size = (9,9)
+        sigma = 2
+        image_gauss = cv2.GaussianBlur(image_gray,kernel_size,sigma)
+
+        # Run HughCircles to detect circles
+        circles = cv2.HoughCircles(image_gauss, method=cv2.HOUGH_GRADIENT, dp=2, minDist = 10)
+
+        # rearrange list of circles to match desired return type
+        circles = list(map(tuple,circles[0, :]))
+
+        return circles
 
     def calculate_ball_position(self,x,y,r):
         """ Calculate ball's (X,Y,Z) position in world coordinates
@@ -28,6 +44,8 @@ class MagicWand:
             Returns:
                 X,Y,Z position of ball in world coordinates
         """
+        # Applying projection equationws
+
         pass
 
     def draw_ball(self,image,x,y,r,Z):
@@ -37,6 +55,7 @@ class MagicWand:
                 x,y,r: 2D position and radius of ball
                 Z: estimated depth of ball
         """
+
         cv2.circle( image, (int(x),int(y)), int(r), (0,0,255),2)
         cv2.putText( image, str(int(Z)) + ' cm', (int(x),int(y)), cv2.FONT_HERSHEY_PLAIN, 1, (0,0,255))
     
@@ -73,5 +92,6 @@ class MagicWand:
             Returns:
                 list of (X,Y,Z) 3D points of detected balls
         """
+        self.detect_ball(image)
         pass
 
