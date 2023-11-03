@@ -82,4 +82,5 @@ plt.show()
 # print out mean of distances
 print(f"Wand Distance: {np.mean(distances):.3f} cm")
 
-# mean distance for wand.mov: 36.902 cm, so pretty close to ground truth of 36 cm
+# mean distance for wand.mov: 36.902 cm, so pretty close to ground truth of 36
+# cm
