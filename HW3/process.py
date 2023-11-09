@@ -14,4 +14,4 @@ responses = detector.get_dog_response_stack(im)
 features = detector.find_features(responses)
 image_out = detector.draw_features(im,features)
 
-cv2.imwrite('features1.png',image_out)
+cv2.imwrite('features.png',image_out)

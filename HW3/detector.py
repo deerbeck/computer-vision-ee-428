@@ -13,9 +13,9 @@ class FeatureDetector:
             response stack.
 
             Arguments:
-              sigma: base sigma value for Gaussian filters nblur: number of
-              Gaussian filters thresh: minimum absolute response value for a
-              feature detection
+              sigma: base sigma value for Gaussian filters 
+              nblur: number of Gaussian filters 
+              thresh: minimum absolute response value for a feature detection
         """
         self.__sigma = sigma
         self.__nblur = nblur
