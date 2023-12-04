@@ -116,9 +116,9 @@ class FeatureDetector:
             # calculate radius with given formula
             r = self.__sigma*((1.5)**level)
 
-            # draw circle in image with calculated radius 
+            # draw circle in image with calculated radius
             cv2.circle(image, (int(x), int(y)), int(r), color, 2)
-            
+
             # draw middle of circle (linethickness -1 fills out circle)
             cv2.circle(image, (int(x), int(y)), 0, color, -1)
 
